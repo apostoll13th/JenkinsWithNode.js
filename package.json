@@ -1,0 +1,14 @@
+{
+    "name": "static-site-example",
+    "version": "1.0.0",
+    "description": "A simple static site generated with Eleventy",
+    "scripts": {
+      "build": "eleventy"
+    },
+    "devDependencies": {
+      "@11ty/eleventy": "latest",
+      "inflight": "latest",
+      "rimraf": "latest", 
+      "glob": "latest"
+    }
+  }

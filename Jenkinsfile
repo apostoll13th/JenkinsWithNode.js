@@ -1,16 +1,14 @@
 @Library('jenkins-shared-library') _
 
 pipeline {
-    agent { 
-        label 'nodejs-slave'
-    }
+    agent any
     
     stages {
         stage('Checkout') {
             steps {
                 gitCheckout(
                     repoUrl: 'https://github.com/apostoll13th/JenkinsWithNode.js,
-                    branch: 'master'
+                    branch: 'main'
                 )
             }
         }

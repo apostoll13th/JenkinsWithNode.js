@@ -1,28 +1,40 @@
+@Library('jenkins-shared-library') _
+
 pipeline {
     agent { 
         label 'nodejs-slave'
     }
     
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                checkout scm
-                sh 'npm install'
-                sh 'npm run build'
+                gitCheckout(
+                    repoUrl: 'https://github.com/user/nodejs-app.git',
+                    branch: 'master'
+                )
             }
         }
+        
+        stage('Build') {
+            steps {
+                npmBuild()
+            }
+        }
+        
         stage('Archive Artifacts') {
             steps {
                 archiveArtifacts artifacts: 'dist/**/*', onlyIfSuccessful: true
             }
         }
+        
         stage('Deploy') {
             steps {
                 script {
                     def dateTag = new Date().format('yyyyMMdd-HHmmss')
-                    sh "mkdir -p /var/www/${dateTag}"
-                    sh "cp -r dist/* /var/www/${dateTag}"
-                    sh "ln -sfn /var/www/${dateTag} /var/www/html"
+                    deployApp(
+                        deployDir: '/var/www',
+                        tag: dateTag
+                    )
                 }
             }
         }

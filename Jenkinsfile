@@ -9,7 +9,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 gitCheckout(
-                    repoUrl: 'https://github.com/user/nodejs-app.git',
+                    repoUrl: 'https://github.com/apostoll13th/JenkinsWithNode.js,
                     branch: 'master'
                 )
             }
